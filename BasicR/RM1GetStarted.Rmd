@@ -18,7 +18,7 @@ library(ggplot2)
 data("mtcars")
 data("sleep")
 data("sat.act") ## in psych package
-data("epi.bfi")
+data("epi.bfi") ## psychTools package
 ```
 
 Hello all. This is an introductory guide to R for Dr. Wood's Research Methods I course. It is designed to get you to try out a few basic but need to know functions in R such as basic statistical analyses and plotting functions. An accompanying video will be uploaded to Dr. Wood's YouTube channel as well and can be found (INSERT LINK HERE). This document assumes you already have \proglang{R} and Rstudio already installed. If not, an instructional video can also be found on Dr. Wood's channel. If you need help with certain functions, or want to know more about them, you can use \code{?FunctionName} to bring up the help file in Rstudio.
@@ -72,17 +72,68 @@ install.packages("Package Name", dependencies = TRUE)
 
 # Frequency Distributions
 
+The main way to get frequency counts and distributions in \proglang{R} is by using the \code{tables()} an \code{hist()} functions. For this section, we will be using the \code{sat.act} data set found in the *psych* package.
+
+\ 
+```{r tablesfun, comment = NA}
+## Load in psych library
+library(psych)
+## Call up data set
+data(sat.act)
+
+## The table function will give us a count of how many
+## people are in each group of the gender variable in the data
+table(sat.act$gender)
+```
+
+```{r histex, comment = NA}
+## The breaks argument can be used to increase or decrease the
+## width of the bins used in the histogram
+hist(sat.act$ACT, breaks = 15, xlab = "ACT Score", main = "Histogram of ACT Scores")
+```
+
 # Measures of Central Tendency
+
+The next section covers how to get measures of central tendency and standard deviation for a vector. We will once again be looking at ACT scores using the \code{sat.act} data set.
 
 ## Mean
 
+```{r mean, comment = NA}
+mean(sat.act$ACT)
+```
+
 ## Median
+
+```{r median, comment = NA}
+median(sat.act$ACT)
+```
 
 ## Mode
 
-### Standard Deviation
+\proglang{R} dose not have a base function for calculating the mode of a vector, but there is a package called *modeest* that will do it for you.
 
-# t-test
+\ 
+```{r mode, comment = NA, warning = FALSE, message = FALSE}
+library(modeest)
+
+mfv(sat.act$ACT)
+```
+
+## Standard Deviation
+
+```{r sd, comment = NA}
+sd(sat.act$ACT)
+```
+
+# Welch's Two-Sample t-test
+
+In this section, we conduct Welch's two-sample t-test. This t-test assumes that there are different participants in each group (Independent, Between-subjects) and that the variance of the groups are not equal.
+
+```{r ttest, comment = NA}
+data(sleep)
+
+t.test(extra ~ group, data = sleep)
+```
 
 # Cohen's D
 
