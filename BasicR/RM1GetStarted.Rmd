@@ -5,26 +5,103 @@ date: "10/14/2021"
 output: pdf_document
 ---
 
+\let\proglang=\textsf
+\let\pkg=\emph
+\let\code=\texttt
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(psych)
+library(psychTools)
+library(ggplot2)
+## possible data
+data("mtcars")
+data("sleep")
+data("sat.act") ## in psych package
+data("epi.bfi")
 ```
 
-## R Markdown
+Hello all. This is an introductory guide to R for Dr. Wood's Research Methods I course. It is designed to get you to try out a few basic but need to know functions in R such as basic statistical analyses and plotting functions. An accompanying video will be uploaded to Dr. Wood's YouTube channel as well and can be found (INSERT LINK HERE). This document assumes you already have \proglang{R} and Rstudio already installed. If not, an instructional video can also be found on Dr. Wood's channel. If you need help with certain functions, or want to know more about them, you can use \code{?FunctionName} to bring up the help file in Rstudio.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+# Open a New Script
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+If this is a new project, it is often a good idea to start up an \proglang{R} script so you can save your code and hardwork to come back to later. To open a new script, you can go up to the tool bar and navigate to 
 
-```{r cars}
-summary(cars)
+\begin{center}
+\textbf{File > New File > R Script}
+\end{center}
+
+Alternatively, below the File drop down menu is a piece of paper with a green plus sign on it. You can click the little arrow beside it to open another drop down menu and select R script from it.
+
+
+# Set Working Directory
+
+One often overlooked step when starting up an R session is setting up your working directory. This just tells R what folder we want it to look in for files to load in or where to save new files to. It makes it much easier to access files when working on specific projects or to keep everything organized in one folder for a specific class. If you are using Rstudio, you can easily change your working directory by looking up at the task bar and then selecting 
+
+\begin{center}
+\textbf{Session > Set Working Directory > Choose Directory}
+\end{center}
+
+This will open up a file browser for you to navigate to your folder of choice. Just select it and click okay. You should then see some code in your console window (typically on the left/lower left side of R Studio). You can also use this function, \code{setwd()}, to set the working directory using \proglang{R} functions. 
+
+\ 
+
+```{r wdex, eval=FALSE}
+## Code to set the working directory
+
+## NOTE: This file path will be different for everyone and dependent on how
+## you have your files set up on your computer
+
+setwd("~/classwork/PSYCH3010")
+
+## If you would like to see what your current WD is
+## you can use
+getwd()
 ```
 
-## Including Plots
+# Installing Packages
 
-You can also embed plots, for example:
+We will be using a couple of different packages for the topics below. You might need to install them if this is the first time you are trying to use them. To install packages, we can use the function \code{install.packages()} or by clicking the install button in the \textbf{Packages} tab in the right side of Rstudio.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+\ 
+
+```{r install, eval=FALSE}
+## Replace 'Package Name' with the name of the package you want to install
+install.packages("Package Name", dependencies = TRUE)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Frequency Distributions
+
+# Measures of Central Tendency
+
+## Mean
+
+## Median
+
+## Mode
+
+### Standard Deviation
+
+# t-test
+
+# Cohen's D
+
+# Plots
+
+## Bar Plot
+
+## Box Plot
+
+## Stem and Leaf Plots
+
+## Violin Plots
+
+# Confidence Interval on a Percentage
+
+# One-Way ANOVA
+
+## *Post-hoc* Tests
+
+# Regresssion with Two Predictors
+
+## Confidence Intervals for $\beta$
