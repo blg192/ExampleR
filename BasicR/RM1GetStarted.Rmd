@@ -72,7 +72,7 @@ install.packages("Package Name", dependencies = TRUE)
 
 # Frequency Distributions
 
-The main way to get frequency counts and distributions in \proglang{R} is by using the \code{tables()} an \code{hist()} functions. For this section, we will be using the \code{sat.act} data set found in the *psych* package.
+The main way to get frequency counts and distributions in \proglang{R} is by using the \code{tables()} an \code{hist()} functions. For this section, we will be using the \code{sat.act} data set found in the \pkg{psych} package.
 
 \ 
 ```{r tablesfun, comment = NA}
@@ -80,6 +80,11 @@ The main way to get frequency counts and distributions in \proglang{R} is by usi
 library(psych)
 ## Call up data set
 data(sat.act)
+## Create factor variables
+sat.act$gender <- factor(sat.act$gender, levels = c(1, 2), labels = c('Male', 'Female'))
+sat.act$education <- factor(sat.act$education, levels = c(0,1,2,3,4,5),
+                            labels = c('< 12 years', 'HS Grad', 'Some College',
+                                       'Enrolled College', 'College Grad', 'Grad/Pro Degree'))
 
 ## The table function will give us a count of how many
 ## people are in each group of the gender variable in the data
@@ -98,19 +103,21 @@ The next section covers how to get measures of central tendency and standard dev
 
 ## Mean
 
+\ 
 ```{r mean, comment = NA}
 mean(sat.act$ACT)
 ```
 
 ## Median
 
+\ 
 ```{r median, comment = NA}
 median(sat.act$ACT)
 ```
 
 ## Mode
 
-\proglang{R} dose not have a base function for calculating the mode of a vector, but there is a package called *modeest* that will do it for you.
+\proglang{R} dose not have a base function for calculating the mode of a vector, but there is a package called \pkg{modeest} that will do it for you.
 
 \ 
 ```{r mode, comment = NA, warning = FALSE, message = FALSE}
@@ -121,6 +128,7 @@ mfv(sat.act$ACT)
 
 ## Standard Deviation
 
+\ 
 ```{r sd, comment = NA}
 sd(sat.act$ACT)
 ```
@@ -129,23 +137,119 @@ sd(sat.act$ACT)
 
 In this section, we conduct Welch's two-sample t-test. This t-test assumes that there are different participants in each group (Independent, Between-subjects) and that the variance of the groups are not equal.
 
+\ 
 ```{r ttest, comment = NA}
 data(sleep)
 
 t.test(extra ~ group, data = sleep)
+
+## NOTE: The defalut argument for t.test is to assume variances are not equal
+## If you have tested and see they are, use var.equal = TRUE for Student's t-test
+
+## If data is is wide format, change the arguemtns to be two vectors.
+## t.test(sleep$group1, sleep$group2)
 ```
+
+This function gives us the t-statistic, degrees of freedom, p-value, 95% confidence interval for the difference between the means, and means for each group.
 
 # Cohen's D
 
+We can then get an effect size for the t-test, Cohen's D, using the \pkg{MOTE} package. Since Welch's does not use a pooled variance term, we use the function \code{d.ind.tt()}.
+
+\ 
+```{r cohensd, comment = NA}
+library(MOTE)
+
+## need t-statistic, group sizes, alpha level
+## From sleep data above: t = -1.8608, group 1 n = 10, group 2 n = 10
+d.ind.t.t(t = -1.8608, n1 = 10, n2= 10, a = 0.05)
+```
+
+This gives us our $d$, lower and upper 95% CI limits, t-test values, and formatting for reporting in APA style.
+
+
 # Plots
+
+In this section we will be looking at creating various plots.
 
 ## Bar Plot
 
+How can we efficiently show the results of the t-test from above? A bar graph showing the means and 95% confidence intervals for each of the two groups would probably be best. We can use the basic plot function for this, but it is pretty involved and difficult process. Instead we will be using \pkg{ggplot2}. 
+
+\ 
+```{r bargraph, comment = NA, out.width = '5in', fig.align='center'}
+library(ggplot2)
+
+## NOTE: Make sure your grouping variable is a 'factor'
+## If not you can turn it into one using factor()
+
+## This code here creates an object to clean up the 
+## ugly default ggplot formatting
+cleanup <- theme(panel.grid.major = element_blank(), 
+                 panel.grid.minor = element_blank(), 
+                 panel.background = element_blank(), 
+                 axis.line = element_line(colour = "black"))
+
+## Create empty plot object
+## In aes, put x-axis variable then y-axis variable
+sleepbar <- ggplot(data = sleep, aes(group, extra))
+
+## Use stat summaries to get means and errors bars
+sleepbar +
+    stat_summary(fun = mean, geom = 'bar', fill = 'white', color = 'black') +
+    stat_summary(fun.data = mean_cl_normal, geom = 'errorbar', width = .2) +
+    xlab('Group Number') + ylab('Increase in Hours of Sleep') + 
+    ggtitle('Sleep Bar Graph') +cleanup
+```
+
+The confidence interval here looks a little odd because of the high variance/low sample size of the groups. Generally we would want the error bars to go below the bottom of the bar. In this situation, it might be better to use standard deviation or standard error for the bars. Another example of a bar graph is presented below with the ACT data
+
+\ 
+```{r ACTplot, comment = FALSE, out.width = '5in', fig.align='center'}
+## Another example using the ACT data
+actbar <- ggplot(data = sat.act, aes(education, ACT))
+
+actbar +
+    stat_summary(fun = mean, geom = 'bar', fill = 'white', color = 'black') +
+    stat_summary(fun.data = mean_cl_normal, geom = 'errorbar', width = .2) +
+    xlab('Education Level') + ylab('Average ACT Score') + 
+    ggtitle('Average ACT Score Across Education Levels') +cleanup
+```
+
 ## Box Plot
+
+Box plots are a good way to look at the distribution of a continuous variable across a categorical variable. In this case, we can check to see how the extra hours of sleep are distributed for each of the groups in the sleep data set.
+
+\ 
+```{r boxplot, comment = NA, out.width = '5in', fig.align='center'}
+sleepbox <- ggplot(sleep, aes(group, extra))
+
+sleepbox +
+    geom_boxplot() + xlab('Group') + ylab('Extra Hours of Sleep') +
+    ggtitle('Box Plot for Sleep Data') + cleanup
+```
 
 ## Stem and Leaf Plots
 
+Stem and Leaf plots can be handy to roughly check distributions of data in smaller data sets.
+
+```{r stem, comment = NA}
+## The length of the plot can be changed with the 'scale = ' argument
+stem(sleep$extra)
+```
+
 ## Violin Plots
+
+Similar to a box plot is a violin plot. However, instead of just showing quantiles, it plots the density of the distributions for each of the groups.
+
+\ 
+```{r violin, comment = NA, out.width = '5in', fig.align='center'}
+sleepviolin <- ggplot(sleep, aes(group, extra))
+
+sleepviolin +
+    geom_violin() + xlab('Group') + ylab('Extra Hours of Sleep') +
+    ggtitle('Box Plot for Sleep Data') + cleanup
+```
 
 # Confidence Interval on a Percentage
 
