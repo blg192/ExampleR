@@ -253,10 +253,113 @@ sleepviolin +
 
 # Confidence Interval on a Percentage
 
+Confidence intervals for a percentage, as well as a proportion test, can be conducted with the \code{prop.test} function. For this example, lets assume we want to test to see if a coin is fair. Out of $100$ flips the coin lands heads up 62 times.
+
+```{r propCI, comment = NA}
+## This function requires the number of successes, 
+## total number of observations, and probability to test against
+prop.test(x = 62, n = 100, p = .5)
+```
+
+# Confidecne interval plots
+
+These plots are handy to compare confidence intervals across several replications of a study. Since we don't have multiple instances of the same study here, we will first simulate 100 data sets and calculate the confidence interval for the mean of each one.
+
+```{r CIplot, comment=NA, fig.height= 8}
+## This code creates a loop to generate some data
+## and then calculate the confidence interval
+lower <- rep(NA, 100)
+upper <- rep(NA, 100)
+set.seed(587463)
+for(i in 1:100) {
+  y <- rnorm(100, mean = 5, sd = 5)
+  lower[i] <- mean(y) - 1.96 * sd(y) / sqrt(length(y))
+  upper[i] <- mean(y) + 1.96 * sd(y) / sqrt(length(y))
+}
+CIs <- cbind(lower, upper)
+
+## identify intervals not covering mu
+## for a 95% CI and 100 samples this should be about 5
+ID <- which(!(CIs[1:100, 1] <= 5 & 5 <= CIs[1:100, 2]))
+
+## initialize the plot
+plot(0, 
+     xlim = c(3, 7), 
+     ylim = c(1, 100), 
+     ylab = "Sample", 
+     xlab = expression(mu), 
+     main = "Confidence Intervals")
+
+## set up color vector
+colors <- rep(gray(0.6), 100)
+colors[ID] <- "red"
+
+## draw reference line at mu=5
+abline(v = 5, lty = 2)
+
+## add horizontal bars representing the CIs
+for(j in 1:100) {
+  lines(c(CIs[j, 1], CIs[j, 2]), 
+        c(j, j), 
+        col = colors[j], 
+        lwd = 2)
+}
+```
+
 # One-Way ANOVA
+
+One-way ANOVA is handy for comparing more than two groups. For this example, we will be using the \code{sat.act} data set and testing to see if there is a difference between the self-reported ACT score and education level. There are a couple of ways to run the ANOVA, either by using \code{lm()} and \code{anova()} or using \code{ezANOVA()} in the \pkg{ez} package. Both of these require data to be in long format. So, if each column is a group, the data set needs to be reshaped to have a column with all the goups and a column with all the responses.
+
+```{r ANOVA, comment=NA}
+## One-way ANOVA using lm() function 
+regmodel <- lm(ACT ~ education, data = sat.act)
+anova(regmodel)
+
+## Alternatively, use 'ez'
+library(ez)
+
+## ez needs a variable with participant numbers
+## so create that here
+sat.act$partno <- c(1:nrow(sat.act))
+
+## One-way ANOVA
+ezANOVA(data = sat.act, 
+        dv = ACT, 
+        between = education, 
+        wid = partno, 
+        type = 3, 
+        return_aov = TRUE)
+```
+
+Using \code{ezANOVA} gives you a little more information, such as Levene's test for homogeneity of variance. Using \code{lm()} and \code{anova()} gives a more traditional ANOVA table output
 
 ## *Post-hoc* Tests
 
+Typically, after rejecting the null for the ANOVA, we would do some sort of follow up test to determine where the group differences actually are. This usually consists of doing all possible pairwise group comparisons using a t-test and then correcting for Type I error by either using a stricter cutoff value or correcting the test statistic.
+
+```{r posthoc, comment = NA}
+## The argument 'p.adjust.method = ' is what applies the correction
+## in this case, we use a Bonferroni corrections on alpha
+pairwise.t.test(sat.act$ACT,
+                sat.act$education,
+                paired = FALSE,
+                var.equal = FALSE,
+                p.adjust.method = 'bonferroni')
+```
+
 # Regresssion with Two Predictors
 
+A regression is run similarly to the first ANOVA option using the \code{lm()} function. all we have to do is specify the formula of the model. Once again, we will be using the \code{sat.act} data set and try to predict ACT using SAT verbal and quantitative scores.
+
+```{r twopredreg, comment = NA}
+regmodel <- lm(ACT ~ SATV + SATQ, data = sat.act)
+summary(regmodel)
+```
+
 ## Confidence Intervals for $\beta$
+
+Confidence intervals for the $\beta$ values of the regression model can be obtained using \code{confint()}.
+
+```{r regci, comment=NA}
+confint(regmodel, level = 0.95)
+```
