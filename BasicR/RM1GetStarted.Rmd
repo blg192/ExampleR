@@ -1,8 +1,9 @@
 ---
 title: "Research Methods I - Getting Started with R"
 author: "Benjamin Graves"
-date: "10/14/2021"
+date: "10/18/2021"
 output: pdf_document
+urlcolor: blue
 ---
 
 \let\proglang=\textsf
@@ -21,7 +22,7 @@ data("sat.act") ## in psych package
 data("epi.bfi") ## psychTools package
 ```
 
-Hello all. This is an introductory guide to R for Dr. Wood's Research Methods I course. It is designed to get you to try out a few basic but need to know functions in R such as basic statistical analyses and plotting functions. An accompanying video will be uploaded to Dr. Wood's YouTube channel as well and can be found (INSERT LINK HERE). This document assumes you already have \proglang{R} and Rstudio already installed. If not, an instructional video can also be found on Dr. Wood's channel. If you need help with certain functions, or want to know more about them, you can use \code{?FunctionName} to bring up the help file in Rstudio.
+Hello all. This is an introductory guide to R for Dr. Wood's Research Methods I course. It is designed to get you to try out a few basic but need to know functions in R such as basic statistical analyses and plotting functions. An accompanying video will be uploaded to Dr. Wood's [YouTube channel](https://www.youtube.com/user/Phillipkwood/videos) as well. This document assumes you already have \proglang{R} and Rstudio already installed. If not, an instructional video can also be found on Dr. Wood's channel. If you need help with certain functions, or want to know more about them, you can use \code{?FunctionName} to bring up the help file in Rstudio.
 
 # Open a New Script
 
