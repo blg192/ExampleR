@@ -16,17 +16,15 @@ library(psych)
 library(psychTools)
 library(ggplot2)
 ## possible data
-data("mtcars")
 data("sleep")
 data("sat.act") ## in psych package
-data("epi.bfi") ## psychTools package
 ```
 
 Hello all. This is an introductory guide to R for Dr. Wood's Research Methods I course. It is designed to get you to try out a few basic but need to know functions in R such as basic statistical analyses and plotting functions. An accompanying video will be uploaded to Dr. Wood's [YouTube channel](https://www.youtube.com/user/Phillipkwood/videos) as well. This document assumes you already have \proglang{R} and Rstudio already installed. If not, an instructional video can also be found on Dr. Wood's channel. If you need help with certain functions, or want to know more about them, you can use \code{?FunctionName} to bring up the help file in Rstudio.
 
 # Open a New Script
 
-If this is a new project, it is often a good idea to start up an \proglang{R} script so you can save your code and hardwork to come back to later. To open a new script, you can go up to the tool bar and navigate to 
+If this is a new project, it is often a good idea to start up an \proglang{R} script so you can save your code and hard work to come back to later. To open a new script, you can go up to the tool bar and navigate to 
 
 \begin{center}
 \textbf{File > New File > R Script}
@@ -82,10 +80,12 @@ library(psych)
 ## Call up data set
 data(sat.act)
 ## Create factor variables
-sat.act$gender <- factor(sat.act$gender, levels = c(1, 2), labels = c('Male', 'Female'))
+sat.act$gender <- factor(sat.act$gender, levels = c(1, 2), 
+                         labels = c('Male', 'Female'))
 sat.act$education <- factor(sat.act$education, levels = c(0,1,2,3,4,5),
                             labels = c('< 12 years', 'HS Grad', 'Some College',
-                                       'Enrolled College', 'College Grad', 'Grad/Pro Degree'))
+                                       'Enrolled College', 'College Grad', 
+                                       'Grad/Pro Degree'))
 
 ## The table function will give us a count of how many
 ## people are in each group of the gender variable in the data
@@ -95,7 +95,24 @@ table(sat.act$gender)
 ```{r histex, comment = NA}
 ## The breaks argument can be used to increase or decrease the
 ## width of the bins used in the histogram
-hist(sat.act$ACT, breaks = 15, xlab = "ACT Score", main = "Histogram of ACT Scores")
+hist(sat.act$ACT, breaks = 15, xlab = "ACT Score", 
+     main = "Histogram of ACT Scores")
+```
+
+## Contingency Tables
+
+The table function can be extended into a contingency table with the addition of another variable. You can also use this to get proportions if needed.
+
+```{r conttab, comment=NA}
+## Frequency counts
+conttab <- table(sat.act$education, sat.act$gender)
+conttab
+
+## Proportions
+prop.table(conttab)
+
+## Percentages
+prop.table(conttab)*100
 ```
 
 # Measures of Central Tendency
@@ -144,10 +161,10 @@ data(sleep)
 
 t.test(extra ~ group, data = sleep)
 
-## NOTE: The defalut argument for t.test is to assume variances are not equal
+## NOTE: The default argument for t.test is to assume variances are not equal
 ## If you have tested and see they are, use var.equal = TRUE for Student's t-test
 
-## If data is is wide format, change the arguemtns to be two vectors.
+## If data is is wide format, change the arguments to be two vectors.
 ## t.test(sleep$group1, sleep$group2)
 ```
 
@@ -262,7 +279,7 @@ Confidence intervals for a percentage, as well as a proportion test, can be cond
 prop.test(x = 62, n = 100, p = .5)
 ```
 
-# Confidecne interval plots
+# Confidence Interval plots
 
 These plots are handy to compare confidence intervals across several replications of a study. Since we don't have multiple instances of the same study here, we will first simulate 100 data sets and calculate the confidence interval for the mean of each one.
 
@@ -271,7 +288,7 @@ These plots are handy to compare confidence intervals across several replication
 ## and then calculate the confidence interval
 lower <- rep(NA, 100)
 upper <- rep(NA, 100)
-set.seed(587463)
+set.seed(587500)
 for(i in 1:100) {
   y <- rnorm(100, mean = 5, sd = 5)
   lower[i] <- mean(y) - 1.96 * sd(y) / sqrt(length(y))
@@ -309,7 +326,7 @@ for(j in 1:100) {
 
 # One-Way ANOVA
 
-One-way ANOVA is handy for comparing more than two groups. For this example, we will be using the \code{sat.act} data set and testing to see if there is a difference between the self-reported ACT score and education level. There are a couple of ways to run the ANOVA, either by using \code{lm()} and \code{anova()} or using \code{ezANOVA()} in the \pkg{ez} package. Both of these require data to be in long format. So, if each column is a group, the data set needs to be reshaped to have a column with all the goups and a column with all the responses.
+One-way ANOVA is handy for comparing more than two groups. For this example, we will be using the \code{sat.act} data set and testing to see if there is a difference between the self-reported ACT score and education level. There are a couple of ways to run the ANOVA, either by using \code{lm()} and \code{anova()} or using \code{ezANOVA()} in the \pkg{ez} package. Both of these require data to be in long format. So, if each column is a group, the data set needs to be reshaped to have a column with all the groups and a column with all the responses.
 
 ```{r ANOVA, comment=NA}
 ## One-way ANOVA using lm() function 
