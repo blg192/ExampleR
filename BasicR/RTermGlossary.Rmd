@@ -1,0 +1,283 @@
+---
+title: "Glossary of R Terminology"
+author: "Ben Graves"
+date: \today
+output: pdf_document
+---
+
+\let\proglang=\textsf
+\let\pkg=\emph
+\let\code=\texttt
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is an evolving list of common terms used when talking about programming in \proglang{R}. I will add new terms as the come up in class, but don't want to overwhelm you all with terms you might not need to know. \proglang{R} code examples are provided below each of the terms. They are designed to be run without any dependencies. For example, each code chunk might call a data set but in a real analysis situation you probably only need to do this once.
+
+## ? or ??
+
+The question mark (\code{?}) can be used to quickly open the help file for a specific function in \proglang{R}. If you want a more general term or phrase, use two question marks (\code{??}) instead.
+
+\  
+```{r help, eval=FALSE}
+# Provides help for specific function
+?mean
+
+## General serch for term or phrase
+??correlation 
+```
+
+
+## Argument
+
+Information you provide to a function to make it run. You can see what these are for each function in the help file (use \code{?functionname}). The \code{args()} function will do the same in the console.
+
+\  
+```{r arguments, comment=NA}
+args(lm)
+```
+
+## Assignment Function
+
+Used to assign a name to an object. In \proglang{R}, this is \code{<-}. However, often times you can subsittue this for \code{=} if that is easier. If you want to keep something around for use later, do this. Names can also be whatever you want them to be.
+
+```{r assign, comment = NA}
+chickentender <- c(1, 2, 3)
+chickentender
+
+cheese = c(4, 5, 6)
+cheese
+```
+
+## Attributes
+
+Traits of an object such as variable names, object class, row names, and dimension.
+
+```{r attrib, comment = NA}
+data(mtcars)
+attributes(mtcars)
+```
+
+## Character
+
+An element or object consisting of something like words or letters. Must surround the letter or words with quotation makes to denote it as a character.
+
+```{r character, comment = NA}
+a <- "Hello!"
+a
+mode(a)
+```
+
+## Class
+
+In short, what the object or element is. For example, a vector, data frame, matrix, or something specific to a function like \code{lm()}.
+
+```{r class, comment = NA}
+a <- matrix(c(1, 2, 3, 4), 2, 2)
+class(a)
+
+data(mtcars)
+class(mtcars)
+```
+
+## Data Frame
+
+A data set. Specifically, a set of equal length column vectors that may be of different classes or modes.
+
+```{r dataframe, comment = NA}
+data(iris)
+head(iris, 3)
+```
+
+## Dim (Dimension)
+
+How many rows and columns are in a matrix, data frame, or array.
+
+```{r dims, comment = NA}
+data(mtcars)
+## The first number is number of rows, the second is number of columns
+dim(mtcars)
+```
+
+## Element
+
+A specific value in a variable or an item in a vector.
+
+```{r element, comment = NA}
+a <- c(4, 5, 6)
+a[2]
+```
+
+## Factor
+
+A categorical variable with value labels (the "group name") and associated levels (Number assigned to "group").
+
+```{r factors, comment = NA}
+Group <- rep(c(1, 2), each = 2)
+## Create Factor
+Group <- factor(Group, levels = c(1, 2), labels = c("Control", "Treatment"))
+
+## Print Vector
+Group
+
+## Labels for levels in factor
+levels(Group)
+```
+
+## Function
+
+A program that takes arguments and does something with them. Theses are often built in or come in packages, but you can make your own with \code{function()\{\}}
+
+```{r funfun, comment = NA}
+MyFunction <- function(x, y, z) {
+    result <- x * y + z
+    print(result)
+}
+MyFunction(x = 3, y = 5, z = 2)
+```
+
+## Index
+
+Where an element or vector is located in a list, data frame, matrix, or vector. This is based on the dimension of the object. For a two dimensional object, indexing goes by row first then column (ex. \code{data[rows, columns]}).
+
+```{r indexing, comment = NA}
+## I want the second element of a vector
+a <- c(4, 5, 6)
+a[2]
+
+## I want the third variable in a data frame
+data(mtcars)
+mtcars[ , 3]
+
+## I want the second and fourth row of data
+mtcars[c( 2, 4), ]
+
+## What is the MPG for a Dodge Challenger (this works because of row and column names)
+mtcars["Dodge Challenger", "mpg"]
+```
+
+## Length
+
+The number of elements in a vector or variable. 
+
+```{r longboi, comment = NA}
+a <- c(4, 5, 6)
+length(a)
+```
+
+## Library
+
+This is where \proglang{R} keeps its packages. Also the name of the function to load a package when you need it. You have to do this every time you restart an R session. Must install the package before it can be called or loaded in.
+
+```{r libs, eval = FALSE}
+install.packages("psych")
+library(psych)
+```
+
+## Matrix
+
+A two-dimensional object containing only one type of variable (all numeric or all character).
+
+```{r mat, comment = NA}
+m <- matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2, byrow = TRUE)
+m
+```
+
+## Mode
+
+An object or element's type such as numeric, character, logical, complex.
+
+```{r mode, comment = NA}
+a <- 1
+mode(a)
+
+b <- "Hello!"
+mode(b)
+
+c <- TRUE
+mode(c)
+```
+
+## NA
+
+A missing value, "Not Available."
+
+```{r missing, comment = NA}
+a <- c(1, 2, NA, 4)
+is.na(a)
+```
+
+## Names
+
+Labels assigned to vectors or elements. Also a function to assign/change variable names.
+
+```{r names, comment = NA}
+data(iris)
+colnames(iris)
+```
+
+## NaN
+
+Another way to specify a missing value. Stands for "Not a Number" and is something undefined mathematically.
+
+```{r nans, comment = NA}
+0/0
+```
+
+## NULL
+
+The void. The abyss. A vast expanse of nothing. Or an object with zero length and no mode. Assigning null to an object will delete it.
+
+```{r thevoid, comment = NA}
+a <- c()
+a
+```
+
+## Numeric
+
+A vector or element containing only numbers.
+
+```{r numbs, comment = NA}
+a <- c(1, 2, 3)
+mode(a)
+```
+
+## Package
+
+A set of files and functions someone else has already written so you don't have to. Must be installed using \code{install.packages()}.
+
+## Script
+
+A text file containing \proglang{R} code. Ends in ".R" for the file type.
+
+## Subset
+
+To select a series of observations or variables from a larger data set. This can be done through indexing or the \code{subset()} function.
+
+```{r subsetting, comment = NA}
+## Select cars with 8 cylinders
+data(mtcars)
+subset(mtcars, mtcars$cyl == 8)
+```
+
+## Vector
+
+Essentially a variable. More specifically a one-dimensional set of values with the same mode.
+
+```{r vects, comment = NA}
+a <- c(1, 2, 3, 4, 5)
+a
+```
+
+## Working Directory (WD)
+
+The file location \proglang{R} is using to look for files to load or where to save files. Best to set this at the start of every \proglang{R} session.
+
+```{r wd, eval = FALSE}
+## See what current working directory is
+getwd()
+
+## Change your current working directory
+setwd("~/filepath")
+```
