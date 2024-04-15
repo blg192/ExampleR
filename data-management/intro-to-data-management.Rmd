@@ -1,0 +1,586 @@
+---
+title: "Intro to Data Management"
+author: "Ben Graves"
+date: "April 16, 2024"
+output: beamer_presentation
+classoption: aspectratio=169
+header-includes:
+  - \usepackage{multicol}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Agenda
+
+\begin{multicols}{3}
+
+\textbf{Data Management}
+\begin{itemize}
+    \item Data Management Plan
+    \item Documentation
+    \item Storage
+    \item Sharing
+\end{itemize}
+
+\columnbreak
+
+\textbf{Data Collection}
+\begin{itemize}
+    \item Consent \& Assent
+    \item SOPs
+    \item Survey Design
+    \item Data Entry
+\end{itemize}
+
+\columnbreak
+
+\textbf{Data Cleaning}
+\begin{itemize}
+    \item Basic Cleaning
+    \item Analysis Cleaning
+\end{itemize}
+
+\end{multicols}
+    
+# Data Management
+
+## What is Data Management?
+
+\begin{multicols}{2}
+
+\begin{itemize}
+    \item Documentation
+    \item Standardization
+    \item Planning
+    \item Tracking
+    \item Storage
+    \item Analysis
+    \item Sharing
+\end{itemize}
+
+\columnbreak
+
+\begin{figure}
+\includegraphics[width = .5\textwidth]{images/research-lifecycle.png}
+\caption{\href{https://osf.io/48ufs}{\textcolor{blue}{OSF:NIH}}}
+\end{figure}
+
+\end{multicols}
+
+## Data Management Plan
+
+Aside from being practical, data management plans are often required by funding agencies. These aid in transparency and reproducibility. \href{https://ies.ed.gov/funding/datasharing_implementation.asp}{\textcolor{blue}{LINK: IES}}
+
+\begin{itemize}
+\item Type and format of data
+\item Procedures for managing, collecting, and analyzing data
+\item Roles and responsibilities of project staff
+\item Schedule and method for sharing
+\item Data documentation
+\end{itemize}
+
+## Data Curation Debt
+
+The idea that sub-optimal management practices accrue compounding debt as the research process progresses. For example, if there is poor or no documentation, it is difficult to go back and create that documentation and can cause slow or erroneous analysis. Starting and implementing data management procedures early helps prevent problems down the line.
+
+## Documentation
+
+Documentation outlines the who, what, when, where, why, and how of the research process. 
+
+Types of documentation:
+\begin{itemize}
+\item Protocols
+\item Style Guides
+\item Data Dictionary
+\item Codebook
+\item README.txt
+\item Scripts
+\end{itemize}
+
+## Documentation
+
+\begin{center}
+Document Everything
+
+Why?
+\end{center}
+
+
+##
+
+
+\begin{figure}
+\includegraphics[width = .5\textwidth]{images/trustnoone.jpg}
+\caption{Trust no one. Not even yourself.}
+\end{figure}
+
+
+## Protocols
+
+Protocols are used to describe the procedures for various aspects of the project and changes to those procedures. It's better write them down now before they are forgotten. Many of these can be used from project to project, so only one document is needed. \href{https://figshare.com/articles/presentation/Data_Management_and_Data_Management_Plans/7890827}{\textcolor{blue}{LINK: Protocol Examples}}
+
+Protocols to include:
+\begin{itemize}
+\item Participant recruitment and selection
+\item Consent/Assent
+\item Data collection, entry, storage, and scoring
+\item Intervention implementation
+\end{itemize}
+
+## Data Dictionary
+
+Typically, this is a spreadsheet that catalogs the variables collected in a study and their associated metadata. Start this before collecting data.
+
+\begin{itemize}
+\item Variable name
+\item Exact Question/Item
+\item Associated scale
+\item Value range or codes
+\item Reverse coding
+\item Calculations
+\item Notes
+\end{itemize}
+
+## Codebooks
+
+These are similar to a data dictionary, but provides a more in depth explanation of the study and variables collected for the study. A non-proprietary file format (.txt) should be used to store the codebook. Include everything here that another researcher might need to know about your project or data.
+
+\begin{itemize}
+\item Study title
+\item Investigators
+\item Table of contents
+\item Purpose and format of codebook/project
+\item Variable level details (like data dictionary)
+\item Computations
+\end{itemize}
+
+## Other Documents
+
+\begin{itemize}
+\item Style Guide: Houses file and variable naming conventions.
+\item README: A text file that contains information needed to navigate files and/or track changes issues in files.
+\item Versioning logs: Keeps track of how files change (there are better ways to do this)
+\item Syntax: Code itself is a good record keeper with the addition of good comments.
+\end{itemize}
+
+## Data Storage 
+
+Data is the most valuable resource we are gifted, so it needs to be protected and used appropriately. 
+
+\begin{itemize}
+\item Store data in a secure, password protected location
+\item Backup data sets
+\item Have at least one copy of data in a non-proprietary file format (.csv)
+\item Prevent data rot by documenting code and storing limited versions of data sets
+\end{itemize}
+
+## Data Storage
+
+\begin{figure}
+\includegraphics[width = .5\textwidth]{images/sadcat.png}
+\caption{Me when I get data and it is just a PDF of tables.}
+\end{figure}
+
+## Data Storage 
+
+\begin{multicols}{3}
+
+Storage options
+\begin{itemize}
+\item Hard Drives
+\item University server system
+\item Cloud storage
+    \begin{itemize}
+    \item SharePoint/OneDrive
+    \item Azure/Amazon
+    \end{itemize}
+\item Github
+\end{itemize}
+
+\columnbreak
+
+Proprietary Files
+\begin{itemize}
+\item .sav (SPSS)
+\item .xlsx (Excel)
+\item .sas7bdat (SAS)
+\item .sql (SQL)
+\item .mat (MatLab)
+\item .rda/.RData (R)
+\end{itemize}
+    
+\columnbreak
+
+Non-proprietary files
+\begin{itemize}
+\item .csv
+\item .txt
+\item .dat (can be iffy and program dependent)
+\end{itemize}
+
+
+\end{multicols}
+
+## Data Sharing
+
+Best Practices
+\begin{itemize}
+\item Share well organized and documented data
+\item Share more than what is needed for analysis as well as code
+\item Consider multiple ways to share data
+\end{itemize}
+
+## Data Sharing
+
+Places to share
+\begin{itemize}
+\item Repository (\href{https://osf.io/}{\textcolor{blue}{OSF}})
+\item Institution archive
+\item Personal or lab website
+\item Supplemental materials on publisher's website
+\item "Available upone request"
+\end{itemize}
+
+# Data Collection
+
+## Institutional Review Board (IRB)
+
+The IRB must review any study involving Human Subjects to
+determine the appropriate level of review. \href{https://research.missouri.edu/human-subjects-research}{\textcolor{blue}{LINK:MU IRB}}
+
+\begin{itemize}
+\item Exempt
+    \begin{itemize}
+    \item Minimal Risk (surveys, interviews, observations, academic tests) and
+          conducted in established educational settings
+    \item De-identified data
+    \end{itemize}
+\item Expedited
+    \begin{itemize}
+    \item Minimal Risk but don’t meet above criteria (voice, video, individual
+          characteristics, focus groups)
+    \item No vulnerable populations (children, prisoners)
+    \end{itemize}
+\item Full Review
+    \begin{itemize}
+    \item Involves risk (sensitive topics, illegal behavior)
+    \item Minimal risk but vulnerable populations
+    \end{itemize}
+\end{itemize}
+
+## Standard Operating Procedures (SOP)
+
+\begin{itemize}
+\item Sets of documents that explain how data is collected an handled
+\item Should be created before collecting data
+\item Make sure everyone working on the project is trained in procedures
+\item Not limited to data collection, can be used for any procedure.
+\end{itemize}
+
+## Tracking File
+
+\begin{multicols}{2}
+
+\begin{itemize}
+\item File that links participant to their study ID
+\item Keeps data confidential
+\item Give every unit a unique ID and stick with it
+\item Can also track:
+    \begin{itemize}
+    \item Consent/assent
+    \item Incentives/Payments
+    \item Data collection completion
+    \item Notes
+    \end{itemize}
+\end{itemize}
+
+\columnbreak
+
+\begin{figure}
+\includegraphics[width = .5\textwidth]{images/tracking.png}
+\end{figure}
+
+\end{multicols}
+
+## Privacy and Confidentiality
+
+\textbf{Privacy:} 
+The right of an individual to keep their personal information private
+
+\textbf{Confidentiality:} 
+The duty of anyone entrusted with personal information to keep that information private
+
+## Maintaining Privacy and Confidentiality
+
+\textbf{Anonymous Data:}
+\begin{itemize}
+\item Data at no time has ever had identifying information tied to it
+\end{itemize}
+
+\textbf{Confidential Data:}
+\begin{itemize}
+\item Personally identifiable information (PII) in your data has been removed and names are replaced with a code
+\item The only way to link the data to an individual is through that code
+\item Identifiers are stored separate from the research data in your tracking database/master list
+\end{itemize}
+
+## Maintaining Privacy and Confidentiality
+
+\textbf{De-identified Data:}
+\begin{itemize}
+\item All PIIs are removed and there is no longer a link to a participant’s identity anywhere
+\item All names are replaced with a code and all tracking databases are destroyed at the conclusion of a study
+\end{itemize}
+
+\textbf{Identifiable Data:}
+\begin{itemize}
+\item Includes PII
+\end{itemize}
+
+## Rules for Collecting PII
+
+\begin{itemize}
+\item Only collect what you need
+\item Store PII in secured area
+    \begin{itemize}
+    \item Electronic data in restricted or password protected folder
+    \item Physical data behind 2 locked doors
+    \end{itemize}
+\item PII can be on the same document as study ID, but must be stored properly and destroyed after data collection is complete
+\item All PII must be removed from research study data
+\end{itemize}
+
+## Consent and Assent
+
+\begin{multicols}{2}
+
+\textbf{Informed Consent}  
+\hfill\break
+“A voluntary agreement based on adequate knowledge and understanding to participate in human subjects research or undergo a medical procedure.”
+
+\columnbreak
+
+\textbf{Informed Assent}  
+\hfill\break
+“When children or minors (<18 years of age) are involved in research, the regulations require the assent of the child or minor and the permission of the parent(s), in place of the consent of the subjects.”
+
+\end{multicols}
+
+## Data Ethics
+
+When we ask participants to sign a consent/assent agreement, they are entering a trust agreement with us.  
+
+Personal information is valuable and participants are trusting that their data will be secure.
+
+This includes:
+\begin{itemize}
+\item Privacy and confidentiality
+\item Accurate data collection and entry
+\item Being mindful of participant’s time and contribution
+\item Maximizing and appropriately using data
+\item Secure data storage
+\item Following data management protocols
+\end{itemize}
+
+
+## Study and Survey Design Tips
+
+\begin{itemize}
+\item Design your study around your research questions
+\item The design then drives the analysis
+\item Try use established measures before making your own
+\item Make use of software as much as possible
+\item Collect only what you'll need or use
+\item Everything should have a procedure and be as automated as possible
+\item Null results are okay
+\end{itemize}
+
+## Web Surveys
+
+\begin{itemize}
+\item Decide on a platform
+    \begin{itemize}
+    \item Established (i.e. Qualtrics, MTurk, Google Forms)
+    \item Create your own (Website, R Shiny, formR)
+    \end{itemize}
+\item Make sure measure is valid and reliable
+\item Consider how the collected data will translate into a data set
+\end{itemize}
+
+## Web Survey Suggestions
+
+\begin{itemize}
+\item Match item names with names from data dictionary
+\item Code items as they are in the data dictionary
+\item Use data validation to reduce errors and missing data
+    \begin{itemize}
+    \item Content validation (i.e. numeric response should only take number)
+    \item Response validation (Suggest or force a response before progressing)
+    \end{itemize}
+\item Use drop down menus instead of open ended responses (i.e. asking school name)
+\end{itemize}
+
+## Web Survey Suggestions
+
+\begin{itemize}
+\item Only ask for one piece of information in each question
+\item Make question wording and response options abundantly clear
+\item Keep question format the same across studies
+\item Order response options in a logical way
+\item Make response options have meaningful categories
+\end{itemize}
+
+## Offline Surveys
+
+Can you turn it into an app or software? If not:
+
+\begin{itemize}
+\item Make sure instructions are clear or train administrators
+\item Use well written questions to avoid multiple responses
+\item Check for missing data in the field or when survey is returned
+\item Try to avoid hand entry of forms
+\end{itemize}
+
+## Data Entry 
+
+\begin{itemize}
+\item Set up a database (Access, RedCap, create your own R Shiny app)
+\item If you have to use Excel or SPSS, set up entry restrictions
+\item Develop data entry protocol
+    \begin{itemize}
+    \item How and where staff access, store, and enter data
+    \item What is done if there is an issue
+    \item Set up a system for error checking (Double Entry)
+    \end{itemize}
+\end{itemize}
+
+## Data Collection Security
+
+\begin{itemize}
+\item Collect anonymous data
+\item If web based:
+    \begin{itemize}
+    \item Send individual links where link has associated ID
+    \item Have participants enter their study ID
+    \item Have participants enter multiple bits of identifying info (i.e. name and DOB)
+    \end{itemize}
+\item Offline options:
+    \begin{itemize}
+    \item Write ID on paper and use removable label or cover sheet with name
+    \item Make sure the correct person gets their form
+    \item Double check with tracking file to make sure they match
+    \item Shred when finished
+    \end{itemize}
+\end{itemize}
+
+# Data Cleaning
+
+## Data Cleaning Levels
+
+Raw Data -> Master Data -> Analysis Data
+
+## Foundations
+
+\begin{itemize}
+\item Data literacy
+\item Domain knowledge
+\item Software knowledge
+\item Consultation with stakeholders
+\end{itemize}
+
+## Raw -> Master Example Process
+
+\begin{itemize}
+\item Import raw data
+\item Check data structure
+    \begin{itemize}
+    \item Check rows for duplicated or non-consented participants and remove
+    \item Check columns against data dictionary
+    \end{itemize}
+\item De-identify
+\item Split columns if needed
+\item Change variable names to match dictionary
+\item Check variable classes and update
+\item Transform and standardize
+\end{itemize}
+
+## Raw -> Master Example Process
+
+\begin{itemize}
+\item Recode items that need it
+\item Create composite scores and constructed variables
+\item Add missing values if needed
+\item Run validation check
+\item Transform
+\item Merge and append
+\item Add variable labels and value codes
+\item Export data
+\end{itemize}
+
+## Things to consider
+
+\begin{itemize}
+\item Data structure (Long Format is generall best)
+\item Only merge when you have to
+\item Don't append time periods to var names until necessary
+\item Keep data "tidy"
+\end{itemize}
+
+\begin{figure}
+\includegraphics[width = .75\textwidth]{images/tidydat.png}
+\end{figure}
+
+## One Think per Cell
+
+\begin{figure}
+\includegraphics[width = .85\textwidth]{images/onepercell.png}
+\end{figure}
+
+## Rectangular Data
+
+\begin{figure}
+\includegraphics[width = .85\textwidth]{images/rectangledat.png}
+\end{figure}
+
+## Use Indicator Variables
+
+\begin{figure}
+\includegraphics[width = .85\textwidth]{images/indvars.png}
+\end{figure}
+
+## No Empty Cells
+
+\begin{figure}
+\includegraphics[width = .85\textwidth]{images/emptycells.png}
+\end{figure}
+
+## Master -> Analysis 
+
+\begin{itemize}
+\item Accuracy Check
+\item Missing Data Check
+\item Outliers Check
+\item Assumption Checks
+    \begin{itemize}
+    \item Additivity
+    \item Normality
+    \item Linearity
+    \item Homogeneity
+    \item Homoscedasticity
+    \end{itemize}
+\end{itemize}
+
+## Resources
+
+\href{https://cghlewis.github.io/mpsi-data-training/index.html}{\textcolor{blue}{Crystal's Data Management Site}}
+
+\href{https://statisticsofdoom.com/}{\textcolor{blue}{Statistics of Doom}}
+
+\href{https://www.youtube.com/@StatisticsofDOOM}{\textcolor{blue}{Stats of Doom YouTube}}
+
+\href{https://github.com/blg192}{\textcolor{blue}{Ben's github}}
+
+\href{https://osf.io/yvf3c/}{\textcolor{blue}{Ben's OSF}}
+
