@@ -240,7 +240,7 @@ Places to share
 \item Institution archive
 \item Personal or lab website
 \item Supplemental materials on publisher's website
-\item "Available upone request"
+\item "Available upon request"
 \end{itemize}
 
 # Data Collection
@@ -405,7 +405,7 @@ This includes:
     \item Established (i.e. Qualtrics, MTurk, Google Forms)
     \item Create your own (Website, R Shiny, formR)
     \end{itemize}
-\item Make sure measure is valid and reliable
+\item Make sure measure is psychometrically sound
 \item Consider how the collected data will translate into a data set
 \end{itemize}
 
@@ -419,7 +419,7 @@ This includes:
     \item Content validation (i.e. numeric response should only take number)
     \item Response validation (Suggest or force a response before progressing)
     \end{itemize}
-\item Use drop down menus instead of open ended responses (i.e. asking school name)
+\item Provide response options when possible
 \end{itemize}
 
 ## Web Survey Suggestions
@@ -532,7 +532,7 @@ Raw Data -> Master Data -> Analysis Data
 \includegraphics[width = .75\textwidth]{images/tidydat.png}
 \end{figure}
 
-## One Think per Cell
+## One Thing per Cell
 
 \begin{figure}
 \includegraphics[width = .85\textwidth]{images/onepercell.png}
