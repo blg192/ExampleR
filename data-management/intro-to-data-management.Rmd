@@ -1,7 +1,7 @@
 ---
 title: "Intro to Data Management"
 author: "Ben Graves"
-date: "April 16, 2024"
+date: "Feb 27, 2026"
 output: beamer_presentation
 classoption: aspectratio=169
 header-includes:
